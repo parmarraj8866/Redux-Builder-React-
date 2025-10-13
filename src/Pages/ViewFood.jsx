@@ -1,6 +1,5 @@
 import { NavLink, useParams } from "react-router-dom";
 import {useSelector } from "react-redux";
-import ToastContainer from "../utils/ToastContainer";
 
 export default function ViewFood() {
   let { foodList } = useSelector((state) => state.FoodList);
@@ -45,7 +44,6 @@ export default function ViewFood() {
           </div>
         </div>
       </div>
-      <ToastContainer/>
     </>
   );
 }

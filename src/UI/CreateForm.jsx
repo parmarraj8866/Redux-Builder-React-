@@ -6,7 +6,9 @@ import { NavLink, useNavigate } from "react-router-dom";
 import {  useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Success from "../utils/Toast";
-import ToastContainer from "../utils/ToastContainer";
+import { ToastContainer } from "react-toastify";
+import { Bounce } from "react-toastify";
+
 
 
 
@@ -35,6 +37,7 @@ export default function CreateForm() {
       dispatch(updateFood(data))
       reset(data)
       redirect("/")
+      Success("Product Update SuccessFully!")
     }
   }
 
@@ -122,8 +125,8 @@ export default function CreateForm() {
           Order
         </button>
         <NavLink className='btn btn-dark mx-2 px-4 fs-56' to="/">Back</NavLink>
+
       </form>
-      <ToastContainer/>
     </>
   );
 }

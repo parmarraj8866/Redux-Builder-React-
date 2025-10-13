@@ -1,6 +1,0 @@
-food ordering
-crud operation
-using redux toolkit thunk 
-with proper routing 
-with react-icons 
-use react-toastify for popup

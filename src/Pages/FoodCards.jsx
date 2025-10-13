@@ -4,7 +4,7 @@ import { AiFillDelete, AiFillEdit } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFood, viewFood } from "../Components/FoodSlice";
 import { LuView } from "react-icons/lu";
-import ToastContainer from "../utils/ToastContainer";
+import Swal from "sweetalert2";
 
 export default function ProductList() {
   let { foodList } = useSelector((state) => state.FoodList);
@@ -14,8 +14,34 @@ export default function ProductList() {
     dispatch(viewFood())
   },[])
 
-  function trash(id){
-    dispatch(deleteFood(id))
+ function trash(id) {
+    
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do You Want to Delete This Product?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+          
+        })
+        dispatch(deleteFood(id));
+      }else{
+        Swal.fire({
+          title: "Not Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
+        });
+      }
+    });
   }
   
   return (
@@ -53,7 +79,6 @@ export default function ProductList() {
           </div>;
         })}
       </div>
-      <ToastContainer/>
     </>
   );
 }

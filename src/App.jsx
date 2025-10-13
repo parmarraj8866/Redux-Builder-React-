@@ -3,9 +3,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Routing from "./utils/Routing";
 import TableFood from "./Pages/TableFood";
-import About from "./UI/About";
+import About from "./Pages/About";
 import FoodTable from "./Pages/TableFood";
 import Navbar from "./Pages/Navbar";
+
 
 export default function App() {
   return (

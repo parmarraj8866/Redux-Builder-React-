@@ -5,7 +5,7 @@
 import { lazy } from "react";
 
 const Home = lazy(() => import("../Pages/FoodCards"));
-const About = lazy(() => import("../UI/About"));
+const About = lazy(() => import("../Pages/About"));
 const CreateForm = lazy(() => import("../UI/CreateForm"));
 const Navbar = lazy(() => import("../Pages/Navbar"));
 const ViewFood = lazy(() => import("../Pages/ViewFood"));

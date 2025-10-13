@@ -2,14 +2,14 @@ import {toast , Bounce } from 'react-toastify'
 
 export default function Success(msg) {
   toast.success(msg, {
-    position: "top-right",
-    autoClose: 5000,
+    position: "top-center",
+    autoClose: 3000,
     hideProgressBar: false,
-    closeOnClick: false,
+    closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "light",
+    theme: "dark",
     transition: Bounce,
   });
 }
