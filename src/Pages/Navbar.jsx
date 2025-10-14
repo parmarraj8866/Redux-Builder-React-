@@ -3,7 +3,10 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg navbar-dark  shadow-sm mb-4 sticky-top" style={{backgroundColor : '#ff9800'}}>
+      <nav
+        className="navbar navbar-expand-lg navbar-dark  shadow-sm mb-4 sticky-top"
+        style={{ backgroundColor: "#ff9800" }}
+      >
         <div className="container">
           <NavLink className="navbar-brand fw-bold text-light fs-4" to="/">
             FoodOrder
@@ -25,6 +28,11 @@ export default function Navbar() {
               <li className="nav-item">
                 <NavLink className="nav-link  text-light" to="/">
                   Home
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link  text-light" to="/about">
+                  About
                 </NavLink>
               </li>
               <li className="nav-item">

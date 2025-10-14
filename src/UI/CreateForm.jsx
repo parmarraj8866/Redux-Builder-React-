@@ -51,7 +51,10 @@ export default function CreateForm() {
       >
         <h2 className="text-center text-primary mb-5">🍽️ Order Food</h2>
 
-        <div className="mb-4 ">
+        <div className="mb-3 ">
+          <label className="mb-2">
+            <strong>Customer Name : </strong>
+          </label>
           <input
             type="text"
             {...register("customerName", { required: true })}
@@ -60,7 +63,10 @@ export default function CreateForm() {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Select Food : </strong>
+          </label>
           <select
             {...register("foodCategory", { required: true })}
             className="form-select"
@@ -77,7 +83,10 @@ export default function CreateForm() {
           </select>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Food Image URL : </strong>
+          </label>
           <input
             type="url"
             {...register("url")}
@@ -85,7 +94,10 @@ export default function CreateForm() {
             placeholder="Enter URL"
           />
         </div>
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Food Price : </strong>
+          </label>
           <input
             type="number"
             {...register("price", { required: true, min: 1 })}
@@ -94,7 +106,10 @@ export default function CreateForm() {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Food Quantity : </strong>
+          </label>
           <input
             type="number"
             {...register("quantity", { required: true, min: 1 })}
@@ -103,7 +118,10 @@ export default function CreateForm() {
           />
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Delivery Address : </strong>
+          </label>
           <textarea
             {...register("deliveryAddress", { required: true })}
             className="form-control"
@@ -112,7 +130,10 @@ export default function CreateForm() {
           ></textarea>
         </div>
 
-        <div className="mb-4">
+        <div className="mb-3">
+           <label className="mb-2">
+            <strong>Instructions : </strong>
+          </label>
           <textarea
             {...register("Instructions")}
             className="form-control"

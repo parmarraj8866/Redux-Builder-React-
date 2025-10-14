@@ -1,24 +1,3 @@
 {
-  "FoodOrder": [
-    {
-      "id": "d541",
-      "customerName": "Raj",
-      "foodCategory": "Sandwich",
-      "url": "https://th.bing.com/th/id/OIP.Lq6-2RPu5OcwMq_0OkI47wHaEn?w=250&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3a",
-      "price": "21",
-      "quantity": "2",
-      "deliveryAddress": "k",
-      "Instructions": "rh"
-    },
-    {
-      "id": "22a2",
-      "customerName": "Raj",
-      "foodCategory": "Chinese",
-      "url": "https://th.bing.com/th/id/OIP.Lq6-2RPu5OcwMq_0OkI47wHaEn?w=250&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3a",
-      "price": "21",
-      "quantity": "2",
-      "deliveryAddress": "adsf",
-      "Instructions": "adfas"
-    }
-  ]
+  "FoodOrder": []
 }

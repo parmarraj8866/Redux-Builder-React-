@@ -17,13 +17,12 @@ export default function ProductList() {
  function trash(id) {
     
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do You Want to Delete This Product?",
+      title: "Do You Want to Delete This Food?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Delete",
       
     }).then((result) => {
       if (result.isConfirmed) {
@@ -57,7 +56,7 @@ export default function ProductList() {
       </div>
 
       <div className="container-fluid d-flex justify-content-center gap-5 flex-wrap mt-5">
-        {foodList.map((food, index) => {
+        {(foodList == null) ? foodList.map((food, index) => {
          return <div className="col-md-2 mb-4 " key={index}>
             <div className="card h-100 shadow-sm">
               <img
@@ -76,8 +75,8 @@ export default function ProductList() {
                 </div>
               </div>
             </div>
-          </div>;
-        })}
+          </div>
+        })  : <h1>No food items available. Please order now!</h1> }
       </div>
     </>
   );

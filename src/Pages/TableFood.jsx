@@ -18,19 +18,17 @@ export default function FoodTable() {
   function trash(id) {
     
     Swal.fire({
-      title: "Are you sure?",
-      text: "Do You Want to Delete This Product?",
+            title: "Do You Want to Delete This Food?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Delete",
       
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
           icon: "success",
           
         })
@@ -38,7 +36,6 @@ export default function FoodTable() {
       }else{
         Swal.fire({
           title: "Not Deleted!",
-          text: "Your file has been deleted.",
           icon: "success",
         });
       }
@@ -56,7 +53,7 @@ export default function FoodTable() {
         <h2
           className="text-center mb-4 fw-bold"
           style={{
-            color: "#1e3c72",
+            color: "#13326cff",
           }}
         >
           🍴 Food Orders
@@ -82,7 +79,8 @@ export default function FoodTable() {
               </tr>
             </thead>
             <tbody>
-              {foodList.map((food) => (
+              
+              { foodList.map((food) => (
                 <tr key={food.id}>
                   <td>{food.customerName}</td>
                   <td>{food.foodCategory}</td>
@@ -125,10 +123,11 @@ export default function FoodTable() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) }
             </tbody>
           </table>
         </div>
+        
 
         <div className="text-center mt-4">
           <NavLink
