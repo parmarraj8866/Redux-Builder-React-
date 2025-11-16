@@ -1,48 +1,39 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { AiFillDelete, AiFillEdit } from "react-icons/ai";
+import { LuView } from "react-icons/lu";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteFood, viewFood } from "../Components/FoodSlice";
-import { LuView } from "react-icons/lu";
 import Swal from "sweetalert2";
 
 export default function ProductList() {
-  let { foodList } = useSelector((state) => state.FoodList);
+  const { foodList } = useSelector((state) => state.FoodList);
+  const dispatch = useDispatch();
 
-  let dispatch =  useDispatch()
-  useEffect(()=> {
-    dispatch(viewFood())
-  },[])
+  useEffect(() => {
+    dispatch(viewFood());
+  }, []);
 
- function trash(id) {
-    
+  function trash(id) {
     Swal.fire({
       title: "Do You Want to Delete This Food?",
       icon: "warning",
       showCancelButton: true,
+      confirmButtonText: "Delete",
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Delete",
-      
-    }).then((result) => {
-      if (result.isConfirmed) {
+    }).then((res) => {
+      if (res.isConfirmed) {
         Swal.fire({
           title: "Deleted!",
-          text: "Your file has been deleted.",
-          icon: "success",
-          
-        })
-        dispatch(deleteFood(id));
-      }else{
-        Swal.fire({
-          title: "Not Deleted!",
-          text: "Your file has been deleted.",
+          text: "Food removed successfully.",
           icon: "success",
         });
+        dispatch(deleteFood(id));
       }
     });
   }
-  
+
   return (
     <>
       <div className="text-center mt-5">
@@ -51,32 +42,60 @@ export default function ProductList() {
           style={{ backgroundColor: "#f76a05ff" }}
           to="/ordernow"
         >
-          Order Now 
+          Order Now
         </NavLink>
       </div>
 
-      <div className="container-fluid d-flex justify-content-center gap-5 flex-wrap mt-5">
-        {(foodList == null) ? foodList.map((food, index) => {
-         return <div className="col-md-2 mb-4 " key={index}>
-            <div className="card h-100 shadow-sm">
-              <img
-                className="card-img-top"
-                src={food.url}
-                style={{ height: "200px", objectFit: "cover" }}
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">Name : {food.foodCategory}</h5> 
-                <p className="card-text text-muted mb-2">Quantity : {food.quantity} </p>
-                <span className="fw-bold mb-3">Price : ₹ {food.price}</span>
-                <div className="mt-auto d-flex justify-content-start align-items-center">
-                  <button className="fs-5 btn btn-danger" onClick={() => trash(food.id)}><AiFillDelete/></button>
-                  <NavLink className="fs-5 btn btn-warning mx-4" to={`/updatefood/${food.id}`} ><AiFillEdit/></NavLink>
-                  <NavLink className="fs-5 btn btn-info" to={`/viewfood/${food.id}`}><LuView/></NavLink>
+      <div className="container mt-5">
+        <div className="row g-4">
+          {foodList && foodList.length > 0 ? (
+            foodList.map((food, i) => (
+              <div className="col-12 col-sm-6 col-md-4 col-lg-3" key={i}>
+                <div className="card h-100 shadow-sm">
+
+                  <img
+                    className="card-img-top"
+                    src={food.url}
+                    alt="Food"
+                    style={{ height: "200px", objectFit: "cover" }}
+                  />
+
+                  <div className="card-body d-flex flex-column">
+                    <h5 className="card-title">Name: {food.foodCategory}</h5>
+                    <p className="text-muted mb-1">Quantity: {food.quantity}</p>
+                    <p className="fw-bold mb-3">Price: ₹{food.price}</p>
+
+                    <div className="mt-auto d-flex gap-2">
+                      <button
+                        className="btn btn-danger fs-5"
+                        onClick={() => trash(food.id)}
+                      >
+                        <AiFillDelete />
+                      </button>
+
+                      <NavLink
+                        className="btn btn-warning fs-5"
+                        to={`/updatefood/${food.id}`}
+                      >
+                        <AiFillEdit />
+                      </NavLink>
+
+                      <NavLink
+                        className="btn btn-info fs-5"
+                        to={`/viewfood/${food.id}`}
+                      >
+                        <LuView />
+                      </NavLink>
+                    </div>
+
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        })  : <h1>No food items available. Please order now!</h1> }
+            ))
+          ) : (
+            <h3 className="text-center">No food items available.</h3>
+          )}
+        </div>
       </div>
     </>
   );

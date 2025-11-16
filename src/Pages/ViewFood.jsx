@@ -1,13 +1,12 @@
 import { NavLink, useParams } from "react-router-dom";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function ViewFood() {
-  let { foodList } = useSelector((state) => state.FoodList);
-  let { id } = useParams();
+  const { foodList } = useSelector((state) => state.FoodList);
+  const { id } = useParams();
 
-  let newArr = foodList.find((food)=> {
-    return food.id == id;
-  })
+  // Safe check (foodList loaded + item exists)
+  const newArr = foodList?.find((food) => food.id == id);
 
   return (
     <>
@@ -21,27 +20,45 @@ export default function ViewFood() {
         </NavLink>
       </div>
 
-      <div className="container-fluid d-flex justify-content-center gap-5 flex-wrap mt-5">
-        <div className="col-md-3 mb-4 ">
-          <div className="card h-100 shadow-lg">
-            <img
-              className="card-img-top"
-              src={newArr.url}
-              style={{ height: "250px", objectFit: "cover" }}
-            />
-            <div className="card-body d-flex flex-column">
-              <h5 className="card-title">Name : {newArr.foodCategory}</h5>
-              <p className="card-text text-muted mb-2">
-                Quantity : {newArr.quantity}{" "}
-              </p>
-              <span className="fw-bold mb-3">Price : ₹ {newArr.price}</span>
-              <div className="mt-auto d-flex justify-content-between align-items-center">
-                <NavLink to="/" className="btn btn-dark">
-                  Back
-                </NavLink>
+      <div className="container mt-5">
+        <div className="row justify-content-center">
+          
+          {/* If item not found */}
+          {!newArr ? (
+            <h3 className="text-center text-danger">Food not found!</h3>
+          ) : (
+            <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+
+              <div className="card shadow-lg rounded-4">
+                
+                <img
+                  className="card-img-top rounded-top-4"
+                  src={newArr.url}
+                  alt="Food"
+                  style={{ height: "260px", objectFit: "cover" }}
+                />
+
+                <div className="card-body">
+
+                  <h4 className="fw-bold">{newArr.foodCategory}</h4>
+
+                  <p className="text-muted mb-1">
+                    Quantity: {newArr.quantity}
+                  </p>
+
+                  <p className="fw-bold fs-5">Price: ₹ {newArr.price}</p>
+
+                  <div className="d-flex justify-content-between mt-4">
+                    <NavLink to="/" className="btn btn-dark px-4">
+                      Back
+                    </NavLink>
+                  </div>
+
+                </div>
               </div>
+
             </div>
-          </div>
+          )}
         </div>
       </div>
     </>

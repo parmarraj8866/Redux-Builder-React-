@@ -1,79 +1,81 @@
 import { useForm } from "react-hook-form";
 import foodCategories from "../utils/FoodData";
-import {useDispatch, useSelector} from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 import { createFood, updateFood } from "../Components/FoodSlice";
-import { NavLink, useNavigate } from "react-router-dom";
-import {  useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect } from "react";
 import Success from "../utils/Toast";
 import { ToastContainer } from "react-toastify";
-import { Bounce } from "react-toastify";
-
-
-
 
 export default function CreateForm() {
   const { register, handleSubmit, reset } = useForm();
-  let {foodList}= useSelector((state) => state.FoodList)
-  
-  let {id} = useParams()
-  
-  let updateData = foodList.find((food)=> food.id == id)
+  const { foodList } = useSelector((state) => state.FoodList);
 
-  let dispatch = useDispatch()
-  let redirect = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { id } = useParams();
 
-  useEffect(()=> {
-    reset(updateData)
-  }, [id])
+  // Update mode data
+  const updateData = foodList?.find((food) => food.id == id);
+
+  useEffect(() => {
+    if (id && updateData) {
+      reset(updateData);
+    }
+  }, [id, updateData]);
 
   function addForm(data) {
-    if(id == null){
-      dispatch(createFood(data))
-      reset()
-      redirect("/")
-      Success("Order SuccessFully!")
-    }else{
-      dispatch(updateFood(data))
-      reset(data)
-      redirect("/")
-      Success("Product Update SuccessFully!")
+    if (!id) {
+      // Create Mode
+      dispatch(createFood(data));
+      reset();
+      Success("Order Successfully Placed!");
+    } else {
+      // Update Mode
+      dispatch(updateFood({ ...data, id }));
+      Success("Food Updated Successfully!");
     }
-  }
 
+    setTimeout(() => {
+      navigate("/");
+    }, 500);
+  }
 
   return (
     <>
+      <ToastContainer />
+<section className="mx-2">
       <form
-        className="container mt-5 shadow-lg p-5 w-50"
+        className="container mt-5 shadow-lg p-4 p-md-5 rounded-4"
         method="post"
         onSubmit={handleSubmit(addForm)}
+        style={{ maxWidth: "600px" }}
       >
-        <h2 className="text-center text-primary mb-5">🍽️ Order Food</h2>
+        <h2 className="text-center text-primary mb-4">
+          🍽️ {id ? "Update Food" : "Order Food"}
+        </h2>
 
-        <div className="mb-3 ">
-          <label className="mb-2">
-            <strong>Customer Name : </strong>
-          </label>
+        {/* Customer Name */}
+        <div className="mb-3">
+          <label className="mb-1 fw-bold">Customer Name:</label>
           <input
             type="text"
             {...register("customerName", { required: true })}
             className="form-control"
-            placeholder="Enter Your Name"
+            placeholder="Enter your name"
           />
         </div>
 
+        {/* Food Category */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Select Food : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Select Food:</label>
           <select
             {...register("foodCategory", { required: true })}
             className="form-select"
             defaultValue=""
           >
             <option value="" disabled>
-              --Select Food--
+              -- Select Food --
             </option>
             {foodCategories.map((food) => (
               <option key={food} value={food}>
@@ -83,71 +85,73 @@ export default function CreateForm() {
           </select>
         </div>
 
+        {/* Image URL */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Food Image URL : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Food Image URL:</label>
           <input
             type="url"
             {...register("url")}
             className="form-control"
-            placeholder="Enter URL"
+            placeholder="Enter food image URL"
           />
         </div>
+
+        {/* Price */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Food Price : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Food Price:</label>
           <input
             type="number"
             {...register("price", { required: true, min: 1 })}
             className="form-control"
-            placeholder="Enter Price"
+            placeholder="Enter price"
           />
         </div>
 
+        {/* Quantity */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Food Quantity : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Food Quantity:</label>
           <input
             type="number"
             {...register("quantity", { required: true, min: 1 })}
             className="form-control"
-            placeholder="Enter Quantity"
+            placeholder="Enter quantity"
           />
         </div>
 
+        {/* Address */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Delivery Address : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Delivery Address:</label>
           <textarea
             {...register("deliveryAddress", { required: true })}
             className="form-control"
-            placeholder="Enter Delivery Address"
             rows={3}
+            placeholder="Enter delivery address"
           ></textarea>
         </div>
 
+        {/* Instructions */}
         <div className="mb-3">
-           <label className="mb-2">
-            <strong>Instructions : </strong>
-          </label>
+          <label className="mb-1 fw-bold">Instructions:</label>
           <textarea
             {...register("Instructions")}
             className="form-control"
-            placeholder="Any Special Instructions?"
             rows={2}
+            placeholder="Any special instructions?"
           ></textarea>
         </div>
 
-        <button type="submit"  className="btn btn-primary px-4 fs-6">
-          Order
-        </button>
-        <NavLink className='btn btn-dark mx-2 px-4 fs-56' to="/">Back</NavLink>
+        {/* Buttons */}
+        <div className="mt-4 d-flex gap-3">
+          <button type="submit" className="btn btn-primary px-4 fs-6">
+            {id ? "Update" : "Order"}
+          </button>
 
+          <NavLink className="btn btn-dark px-4 fs-6" to="/">
+            Back
+          </NavLink>
+        </div>
       </form>
+      </section>
     </>
   );
 }

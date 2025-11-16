@@ -43,6 +43,7 @@ export default function FoodTable() {
   }
   return (
     <>
+    <section className="mx-2">
       <div
         className="container mt-5 p-4 rounded-4 shadow-lg"
         style={{
@@ -152,6 +153,7 @@ export default function FoodTable() {
           transition={Bounce}
         />
       </div>
+      </section>
     </>
   );
 }
